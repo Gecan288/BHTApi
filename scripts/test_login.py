@@ -1,11 +1,12 @@
+import pytest, sys, os, allure
+sys.path.append(os.getcwd())
 from tools.get_data import read_yaml
 from libs.login import Login
 
 
-res = read_yaml("loginPwd.yaml")[1]
-print(res)
-respdata = Login().login(res['data'])
-print(respdata)
+class TestLogin():
 
-if res["result"]["msg"] in respdata["msg"]:
-    print("----通过----")
+    @pytest.mark.parametrize("body, result", read_yaml("login.yaml"))
+    def test_login(self, body, result):
+        res = Login().login(body)
+        assert result in res["msg"]
