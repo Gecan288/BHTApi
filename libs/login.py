@@ -12,11 +12,11 @@ class Login():
 
     def login(self, inData, mode=False):
         url = f"{host}{login}"
-        resp = requests.post(url, json=inData)
+        result = requests.post(url, json=inData)
         if mode:
-            return resp.json()["data"]["accessToken"]
+            return result.json()["data"]["accessToken"]
         else:
-            return resp.json()
+            return result.json()
 
 
 if __name__ == '__main__':
